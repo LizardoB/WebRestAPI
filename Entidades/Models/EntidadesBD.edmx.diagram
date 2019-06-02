@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a627f58fb4754633b52890aa0d59d608" Name="Diagram1">
+        <EntityTypeShape EntityType="ingSoftwareModel.AsignacionCatedratico" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ingSoftwareModel.AsignacionEstudiante" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ingSoftwareModel.AsignacionEvento" Width="2" PointX="5.375" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ingSoftwareModel.Asistencia" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ingSoftwareModel.AsistenciaDetalle" Width="1.5" PointX="9.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ingSoftwareModel.Catedratico" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ingSoftwareModel.Curso" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ingSoftwareModel.Estudiante" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ingSoftwareModel.Evento" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="ingSoftwareModel.FK_AsignacionCatedratico_Catedratico" ManuallyRouted="false" />
+        <AssociationConnector Association="ingSoftwareModel.FK_AsignacionCatedratico_Curso" ManuallyRouted="false" />
+        <AssociationConnector Association="ingSoftwareModel.FK_AsignacionEstudiante_AsignacionCatedratico" ManuallyRouted="false" />
+        <AssociationConnector Association="ingSoftwareModel.FK_AsignacionEvento_AsignacionCatedratico" ManuallyRouted="false" />
+        <AssociationConnector Association="ingSoftwareModel.FK_AsignacionEstudiante_Estudiante" ManuallyRouted="false" />
+        <AssociationConnector Association="ingSoftwareModel.FK_AsignacionEvento_Evento" ManuallyRouted="false" />
+        <AssociationConnector Association="ingSoftwareModel.FK_Asistencia_AsignacionEvento" ManuallyRouted="false" />
+        <AssociationConnector Association="ingSoftwareModel.FK_AsistenciaDetalle_Asistencia" ManuallyRouted="false" />
+        <AssociationConnector Association="ingSoftwareModel.FK_AsistenciaDetalle_Estudiante" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

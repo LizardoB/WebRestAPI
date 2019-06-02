@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{149071A4-0304-4663-B636-B1769F25391A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Entidades</RootNamespace>
+    <AssemblyName>Entidades</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\AsignacionCatedratico.cs">
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AsignacionEstudiante.cs">
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AsignacionEvento.cs">
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Asistencia.cs">
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AsistenciaDetalle.cs">
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Catedratico.cs">
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Curso.cs">
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntidadesBD.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntidadesBD.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntidadesBD.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntidadesBD.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntidadesBD.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Estudiante.cs">
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Evento.cs">
+      <DependentUpon>EntidadesBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
+    <EntityDeploy Include="Models\EntidadesBD.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EntidadesBD.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\EntidadesBD.edmx.diagram">
+      <DependentUpon>EntidadesBD.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Models\EntidadesBD.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EntidadesBD.edmx</DependentUpon>
+      <LastGenOutput>EntidadesBD.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\EntidadesBD.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EntidadesBD.edmx</DependentUpon>
+      <LastGenOutput>EntidadesBD.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

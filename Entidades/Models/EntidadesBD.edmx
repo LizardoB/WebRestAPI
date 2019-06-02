@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ingSoftwareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AsignacionCatedratico">
+          <Key>
+            <PropertyRef Name="idAsignacionCatedratico" />
+          </Key>
+          <Property Name="idAsignacionCatedratico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCatedratico" Type="int" />
+          <Property Name="idCurso" Type="int" Nullable="false" />
+          <Property Name="Annio" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="personGroupId" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AsignacionEstudiante">
+          <Key>
+            <PropertyRef Name="idAsignacionEstudiante" />
+          </Key>
+          <Property Name="idAsignacionEstudiante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAsignacionCatedratico" Type="int" Nullable="false" />
+          <Property Name="idEstudiante" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AsignacionEvento">
+          <Key>
+            <PropertyRef Name="idAsignacionEvento" />
+          </Key>
+          <Property Name="idAsignacionEvento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEvento" Type="int" Nullable="false" />
+          <Property Name="idAsigacionCatedratico" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Finalizado" Type="int" />
+        </EntityType>
+        <EntityType Name="Asistencia">
+          <Key>
+            <PropertyRef Name="idAsistencia" />
+          </Key>
+          <Property Name="idAsistencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAsignacionEvento" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AsistenciaDetalle">
+          <Key>
+            <PropertyRef Name="idAsistenciaDetalle" />
+          </Key>
+          <Property Name="idAsistenciaDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAsistencia" Type="int" Nullable="false" />
+          <Property Name="idEstudiante" Type="int" Nullable="false" />
+          <Property Name="Asistencia" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Catedratico">
+          <Key>
+            <PropertyRef Name="idCatedratico" />
+          </Key>
+          <Property Name="idCatedratico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="idCurso" />
+          </Key>
+          <Property Name="idCurso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ciclo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="idEstudiante" />
+          </Key>
+          <Property Name="idEstudiante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Fotografia" Type="varbinary(max)" />
+          <Property Name="Api_Id" Type="varchar" MaxLength="100" />
+          <Property Name="personId" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="idEvento" />
+          </Key>
+          <Property Name="idEvento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Año" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AsignacionCatedratico_Catedratico">
+          <End Role="Catedratico" Type="Self.Catedratico" Multiplicity="0..1" />
+          <End Role="AsignacionCatedratico" Type="Self.AsignacionCatedratico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catedratico">
+              <PropertyRef Name="idCatedratico" />
+            </Principal>
+            <Dependent Role="AsignacionCatedratico">
+              <PropertyRef Name="idCatedratico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionCatedratico_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="AsignacionCatedratico" Type="Self.AsignacionCatedratico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="idCurso" />
+            </Principal>
+            <Dependent Role="AsignacionCatedratico">
+              <PropertyRef Name="idCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionEstudiante_AsignacionCatedratico">
+          <End Role="AsignacionCatedratico" Type="Self.AsignacionCatedratico" Multiplicity="1" />
+          <End Role="AsignacionEstudiante" Type="Self.AsignacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AsignacionCatedratico">
+              <PropertyRef Name="idAsignacionCatedratico" />
+            </Principal>
+            <Dependent Role="AsignacionEstudiante">
+              <PropertyRef Name="idAsignacionCatedratico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionEstudiante_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="AsignacionEstudiante" Type="Self.AsignacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="idEstudiante" />
+            </Principal>
+            <Dependent Role="AsignacionEstudiante">
+              <PropertyRef Name="idEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionEvento_AsignacionCatedratico">
+          <End Role="AsignacionCatedratico" Type="Self.AsignacionCatedratico" Multiplicity="1" />
+          <End Role="AsignacionEvento" Type="Self.AsignacionEvento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AsignacionCatedratico">
+              <PropertyRef Name="idAsignacionCatedratico" />
+            </Principal>
+            <Dependent Role="AsignacionEvento">
+              <PropertyRef Name="idAsigacionCatedratico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionEvento_Evento">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="AsignacionEvento" Type="Self.AsignacionEvento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento">
+              <PropertyRef Name="idEvento" />
+            </Principal>
+            <Dependent Role="AsignacionEvento">
+              <PropertyRef Name="idEvento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Asistencia_AsignacionEvento">
+          <End Role="AsignacionEvento" Type="Self.AsignacionEvento" Multiplicity="1" />
+          <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AsignacionEvento">
+              <PropertyRef Name="idAsignacionEvento" />
+            </Principal>
+            <Dependent Role="Asistencia">
+              <PropertyRef Name="idAsignacionEvento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsistenciaDetalle_Asistencia">
+          <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="1" />
+          <End Role="AsistenciaDetalle" Type="Self.AsistenciaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistencia">
+              <PropertyRef Name="idAsistencia" />
+            </Principal>
+            <Dependent Role="AsistenciaDetalle">
+              <PropertyRef Name="idAsistencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsistenciaDetalle_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="AsistenciaDetalle" Type="Self.AsistenciaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="idEstudiante" />
+            </Principal>
+            <Dependent Role="AsistenciaDetalle">
+              <PropertyRef Name="idEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ingSoftwareModelStoreContainer">
+          <EntitySet Name="AsignacionCatedratico" EntityType="Self.AsignacionCatedratico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AsignacionEstudiante" EntityType="Self.AsignacionEstudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AsignacionEvento" EntityType="Self.AsignacionEvento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Asistencia" EntityType="Self.Asistencia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AsistenciaDetalle" EntityType="Self.AsistenciaDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Catedratico" EntityType="Self.Catedratico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evento" EntityType="Self.Evento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AsignacionCatedratico_Catedratico" Association="Self.FK_AsignacionCatedratico_Catedratico">
+            <End Role="Catedratico" EntitySet="Catedratico" />
+            <End Role="AsignacionCatedratico" EntitySet="AsignacionCatedratico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionCatedratico_Curso" Association="Self.FK_AsignacionCatedratico_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="AsignacionCatedratico" EntitySet="AsignacionCatedratico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionEstudiante_AsignacionCatedratico" Association="Self.FK_AsignacionEstudiante_AsignacionCatedratico">
+            <End Role="AsignacionCatedratico" EntitySet="AsignacionCatedratico" />
+            <End Role="AsignacionEstudiante" EntitySet="AsignacionEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionEstudiante_Estudiante" Association="Self.FK_AsignacionEstudiante_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="AsignacionEstudiante" EntitySet="AsignacionEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionEvento_AsignacionCatedratico" Association="Self.FK_AsignacionEvento_AsignacionCatedratico">
+            <End Role="AsignacionCatedratico" EntitySet="AsignacionCatedratico" />
+            <End Role="AsignacionEvento" EntitySet="AsignacionEvento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionEvento_Evento" Association="Self.FK_AsignacionEvento_Evento">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="AsignacionEvento" EntitySet="AsignacionEvento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Asistencia_AsignacionEvento" Association="Self.FK_Asistencia_AsignacionEvento">
+            <End Role="AsignacionEvento" EntitySet="AsignacionEvento" />
+            <End Role="Asistencia" EntitySet="Asistencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsistenciaDetalle_Asistencia" Association="Self.FK_AsistenciaDetalle_Asistencia">
+            <End Role="Asistencia" EntitySet="Asistencia" />
+            <End Role="AsistenciaDetalle" EntitySet="AsistenciaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsistenciaDetalle_Estudiante" Association="Self.FK_AsistenciaDetalle_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="AsistenciaDetalle" EntitySet="AsistenciaDetalle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ingSoftwareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AsignacionCatedratico">
+          <Key>
+            <PropertyRef Name="idAsignacionCatedratico" />
+          </Key>
+          <Property Name="idAsignacionCatedratico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCatedratico" Type="Int32" />
+          <Property Name="idCurso" Type="Int32" Nullable="false" />
+          <Property Name="Annio" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="personGroupId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AsignacionEstudiante">
+          <Key>
+            <PropertyRef Name="idAsignacionEstudiante" />
+          </Key>
+          <Property Name="idAsignacionEstudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAsignacionCatedratico" Type="Int32" Nullable="false" />
+          <Property Name="idEstudiante" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AsignacionEvento">
+          <Key>
+            <PropertyRef Name="idAsignacionEvento" />
+          </Key>
+          <Property Name="idAsignacionEvento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEvento" Type="Int32" Nullable="false" />
+          <Property Name="idAsigacionCatedratico" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Finalizado" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Asistencia">
+          <Key>
+            <PropertyRef Name="idAsistencia" />
+          </Key>
+          <Property Name="idAsistencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAsignacionEvento" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AsistenciaDetalle">
+          <Key>
+            <PropertyRef Name="idAsistenciaDetalle" />
+          </Key>
+          <Property Name="idAsistenciaDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAsistencia" Type="Int32" Nullable="false" />
+          <Property Name="idEstudiante" Type="Int32" Nullable="false" />
+          <Property Name="Asistencia" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Catedratico">
+          <Key>
+            <PropertyRef Name="idCatedratico" />
+          </Key>
+          <Property Name="idCatedratico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Usuario" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="idCurso" />
+          </Key>
+          <Property Name="idCurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ciclo" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="idEstudiante" />
+          </Key>
+          <Property Name="idEstudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fotografia" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Api_Id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="personId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="idEvento" />
+          </Key>
+          <Property Name="idEvento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="25" Unicode="false" FixedLength="false" />
+          <Property Name="Año" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_AsignacionCatedratico_Catedratico">
+          <End Role="Catedratico" Type="Self.Catedratico" Multiplicity="0..1" />
+          <End Role="AsignacionCatedratico" Type="Self.AsignacionCatedratico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catedratico">
+              <PropertyRef Name="idCatedratico" />
+            </Principal>
+            <Dependent Role="AsignacionCatedratico">
+              <PropertyRef Name="idCatedratico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionCatedratico_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="AsignacionCatedratico" Type="Self.AsignacionCatedratico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="idCurso" />
+            </Principal>
+            <Dependent Role="AsignacionCatedratico">
+              <PropertyRef Name="idCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionEstudiante_AsignacionCatedratico">
+          <End Role="AsignacionCatedratico" Type="Self.AsignacionCatedratico" Multiplicity="1" />
+          <End Role="AsignacionEstudiante" Type="Self.AsignacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AsignacionCatedratico">
+              <PropertyRef Name="idAsignacionCatedratico" />
+            </Principal>
+            <Dependent Role="AsignacionEstudiante">
+              <PropertyRef Name="idAsignacionCatedratico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionEvento_AsignacionCatedratico">
+          <End Role="AsignacionCatedratico" Type="Self.AsignacionCatedratico" Multiplicity="1" />
+          <End Role="AsignacionEvento" Type="Self.AsignacionEvento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AsignacionCatedratico">
+              <PropertyRef Name="idAsignacionCatedratico" />
+            </Principal>
+            <Dependent Role="AsignacionEvento">
+              <PropertyRef Name="idAsigacionCatedratico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionEstudiante_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="AsignacionEstudiante" Type="Self.AsignacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="idEstudiante" />
+            </Principal>
+            <Dependent Role="AsignacionEstudiante">
+              <PropertyRef Name="idEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionEvento_Evento">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="AsignacionEvento" Type="Self.AsignacionEvento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento">
+              <PropertyRef Name="idEvento" />
+            </Principal>
+            <Dependent Role="AsignacionEvento">
+              <PropertyRef Name="idEvento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Asistencia_AsignacionEvento">
+          <End Role="AsignacionEvento" Type="Self.AsignacionEvento" Multiplicity="1" />
+          <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AsignacionEvento">
+              <PropertyRef Name="idAsignacionEvento" />
+            </Principal>
+            <Dependent Role="Asistencia">
+              <PropertyRef Name="idAsignacionEvento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsistenciaDetalle_Asistencia">
+          <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="1" />
+          <End Role="AsistenciaDetalle" Type="Self.AsistenciaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistencia">
+              <PropertyRef Name="idAsistencia" />
+            </Principal>
+            <Dependent Role="AsistenciaDetalle">
+              <PropertyRef Name="idAsistencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsistenciaDetalle_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="AsistenciaDetalle" Type="Self.AsistenciaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="idEstudiante" />
+            </Principal>
+            <Dependent Role="AsistenciaDetalle">
+              <PropertyRef Name="idEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ingSoftwareEntitiesBD" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AsignacionCatedratico" EntityType="Self.AsignacionCatedratico" />
+          <EntitySet Name="AsignacionEstudiante" EntityType="Self.AsignacionEstudiante" />
+          <EntitySet Name="AsignacionEvento" EntityType="Self.AsignacionEvento" />
+          <EntitySet Name="Asistencia" EntityType="Self.Asistencia" />
+          <EntitySet Name="AsistenciaDetalle" EntityType="Self.AsistenciaDetalle" />
+          <EntitySet Name="Catedratico" EntityType="Self.Catedratico" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" />
+          <EntitySet Name="Evento" EntityType="Self.Evento" />
+          <AssociationSet Name="FK_AsignacionCatedratico_Catedratico" Association="Self.FK_AsignacionCatedratico_Catedratico">
+            <End Role="Catedratico" EntitySet="Catedratico" />
+            <End Role="AsignacionCatedratico" EntitySet="AsignacionCatedratico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionCatedratico_Curso" Association="Self.FK_AsignacionCatedratico_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="AsignacionCatedratico" EntitySet="AsignacionCatedratico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionEstudiante_AsignacionCatedratico" Association="Self.FK_AsignacionEstudiante_AsignacionCatedratico">
+            <End Role="AsignacionCatedratico" EntitySet="AsignacionCatedratico" />
+            <End Role="AsignacionEstudiante" EntitySet="AsignacionEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionEvento_AsignacionCatedratico" Association="Self.FK_AsignacionEvento_AsignacionCatedratico">
+            <End Role="AsignacionCatedratico" EntitySet="AsignacionCatedratico" />
+            <End Role="AsignacionEvento" EntitySet="AsignacionEvento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionEstudiante_Estudiante" Association="Self.FK_AsignacionEstudiante_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="AsignacionEstudiante" EntitySet="AsignacionEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionEvento_Evento" Association="Self.FK_AsignacionEvento_Evento">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="AsignacionEvento" EntitySet="AsignacionEvento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Asistencia_AsignacionEvento" Association="Self.FK_Asistencia_AsignacionEvento">
+            <End Role="AsignacionEvento" EntitySet="AsignacionEvento" />
+            <End Role="Asistencia" EntitySet="Asistencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsistenciaDetalle_Asistencia" Association="Self.FK_AsistenciaDetalle_Asistencia">
+            <End Role="Asistencia" EntitySet="Asistencia" />
+            <End Role="AsistenciaDetalle" EntitySet="AsistenciaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsistenciaDetalle_Estudiante" Association="Self.FK_AsistenciaDetalle_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="AsistenciaDetalle" EntitySet="AsistenciaDetalle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ingSoftwareModelStoreContainer" CdmEntityContainer="ingSoftwareEntitiesBD">
+          <EntitySetMapping Name="AsignacionCatedratico">
+            <EntityTypeMapping TypeName="ingSoftwareModel.AsignacionCatedratico">
+              <MappingFragment StoreEntitySet="AsignacionCatedratico">
+                <ScalarProperty Name="idAsignacionCatedratico" ColumnName="idAsignacionCatedratico" />
+                <ScalarProperty Name="idCatedratico" ColumnName="idCatedratico" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="Annio" ColumnName="Annio" />
+                <ScalarProperty Name="personGroupId" ColumnName="personGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AsignacionEstudiante">
+            <EntityTypeMapping TypeName="ingSoftwareModel.AsignacionEstudiante">
+              <MappingFragment StoreEntitySet="AsignacionEstudiante">
+                <ScalarProperty Name="idAsignacionEstudiante" ColumnName="idAsignacionEstudiante" />
+                <ScalarProperty Name="idAsignacionCatedratico" ColumnName="idAsignacionCatedratico" />
+                <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AsignacionEvento">
+            <EntityTypeMapping TypeName="ingSoftwareModel.AsignacionEvento">
+              <MappingFragment StoreEntitySet="AsignacionEvento">
+                <ScalarProperty Name="Finalizado" ColumnName="Finalizado" />
+                <ScalarProperty Name="idAsignacionEvento" ColumnName="idAsignacionEvento" />
+                <ScalarProperty Name="idEvento" ColumnName="idEvento" />
+                <ScalarProperty Name="idAsigacionCatedratico" ColumnName="idAsigacionCatedratico" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Asistencia">
+            <EntityTypeMapping TypeName="ingSoftwareModel.Asistencia">
+              <MappingFragment StoreEntitySet="Asistencia">
+                <ScalarProperty Name="idAsistencia" ColumnName="idAsistencia" />
+                <ScalarProperty Name="idAsignacionEvento" ColumnName="idAsignacionEvento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AsistenciaDetalle">
+            <EntityTypeMapping TypeName="ingSoftwareModel.AsistenciaDetalle">
+              <MappingFragment StoreEntitySet="AsistenciaDetalle">
+                <ScalarProperty Name="idAsistenciaDetalle" ColumnName="idAsistenciaDetalle" />
+                <ScalarProperty Name="idAsistencia" ColumnName="idAsistencia" />
+                <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
+                <ScalarProperty Name="Asistencia" ColumnName="Asistencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Catedratico">
+            <EntityTypeMapping TypeName="ingSoftwareModel.Catedratico">
+              <MappingFragment StoreEntitySet="Catedratico">
+                <ScalarProperty Name="idCatedratico" ColumnName="idCatedratico" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="ingSoftwareModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Ciclo" ColumnName="Ciclo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estudiante">
+            <EntityTypeMapping TypeName="ingSoftwareModel.Estudiante">
+              <MappingFragment StoreEntitySet="Estudiante">
+                <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Fotografia" ColumnName="Fotografia" />
+                <ScalarProperty Name="Api_Id" ColumnName="Api_Id" />
+                <ScalarProperty Name="personId" ColumnName="personId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evento">
+            <EntityTypeMapping TypeName="ingSoftwareModel.Evento">
+              <MappingFragment StoreEntitySet="Evento">
+                <ScalarProperty Name="idEvento" ColumnName="idEvento" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Año" ColumnName="Año" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
